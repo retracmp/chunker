@@ -1,0 +1,12 @@
+/output
+*.exe
+~*.exe
+
+/tmp
+.env
+*.db
+*.csv
+*.log
+
+/build
+/builds

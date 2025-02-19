@@ -1,0 +1,62 @@
+name: Go Build & Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build Go Binary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23.6"
+
+      - name: Build Binary
+        run: |
+          GOOS=linux GOARCH=amd64 go build -o chunker-linux-amd64 .
+          GOOS=darwin GOARCH=amd64 go build -o chunker-mac-amd64 .
+          GOOS=windows GOARCH=amd64 go build -o chunker-windows-amd64.exe .
+
+      - name: Archive Binaries
+        run: |
+          tar -czvf chunker-linux-amd64.tar.gz chunker-linux-amd64
+          tar -czvf chunker-mac-amd64.tar.gz chunker-mac-amd64
+
+      - name: Get Latest Release
+        id: get_release
+        uses: mukunku/tag-exists-action@v1.6.0
+        with:
+          tag: ${{ github.ref_name }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release (if not exists)
+        if: steps.get_release.outputs.exists == 'false'
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: "${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+          files: |
+            chunker-linux-amd64.tar.gz
+            chunker-mac-amd64.tar.gz
+            chunker-windows-amd64.exe
+
+      - name: Upload Binaries to Release
+        if: steps.get_release.outputs.exists == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            chunker-linux-amd64.tar.gz
+            chunker-mac-amd64.tar.gz
+            chunker-windows-amd64.exe
