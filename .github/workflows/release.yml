@@ -34,7 +34,7 @@ jobs:
         id: get_release
         uses: mukunku/tag-exists-action@v1.6.0
         with:
-          tag: ${{ github.ref_name }}
+          tag: master
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release (if not exists)
@@ -44,7 +44,7 @@ jobs:
         with:
           tag_name: master
           name: Release
-          body: "${{ github.ref_name }}"
+          body: "Automated release"
           draft: false
           prerelease: false
           files: |
