@@ -15,6 +15,10 @@ a utility to improve upload and download speeds for large files by splitting the
 - checks if the file is already downloaded by comparing the hash of the file
 - cleans up temporary files after download
 
+## coming soon
+
+- gui
+
 ## usage
 
 `./chunker.exe download <manifest_url> <build_dir>`
