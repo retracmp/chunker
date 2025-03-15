@@ -17,7 +17,9 @@ a utility to improve upload and download speeds for large files by splitting the
 
 ## coming soon
 
-- gui
+- integrated gui
+
+![image](https://github.com/user-attachments/assets/ed6708eb-2975-4fe1-80dd-0ae9b82c7b0a)
 
 ## usage
 
