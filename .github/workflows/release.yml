@@ -21,14 +21,8 @@ jobs:
 
       - name: Build Binary
         run: |
-          GOOS=linux GOARCH=amd64 go build -o chunker-linux-amd64 .
-          GOOS=darwin GOARCH=amd64 go build -o chunker-mac-amd64 .
-          GOOS=windows GOARCH=amd64 go build -o chunker-windows-amd64.exe .
-
-      - name: Archive Binaries
-        run: |
-          tar -czvf chunker-linux-amd64.tar.gz chunker-linux-amd64
-          tar -czvf chunker-mac-amd64.tar.gz chunker-mac-amd64
+          GOOS=windows GOARCH=amd64 go build -o chunker.exe .
+          GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o chunker-gui.exe .
 
       - name: Get Latest Release
         id: get_release
@@ -48,15 +42,13 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            chunker-linux-amd64.tar.gz
-            chunker-mac-amd64.tar.gz
-            chunker-windows-amd64.exe
+            chunker.exe
+            chunker-gui.exe
 
       - name: Upload Binaries to Release
         if: steps.get_release.outputs.exists == 'true'
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            chunker-linux-amd64.tar.gz
-            chunker-mac-amd64.tar.gz
-            chunker-windows-amd64.exe
+            chunker.exe
+            chunker-gui.exe
