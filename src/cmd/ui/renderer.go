@@ -2,11 +2,14 @@ package ui
 
 import (
 	"github.com/ebitenui/ebitenui"
+	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type renderer struct {
 	ui *ebitenui.UI
+
+	btn *widget.Button
 }
 
 func (g *renderer) Update() error {
