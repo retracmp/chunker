@@ -22,7 +22,6 @@ jobs:
       - name: Build Binary
         run: |
           GOOS=windows GOARCH=amd64 go build -o chunker.exe .
-          GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o chunker-gui.exe .
 
       - name: Get Latest Release
         id: get_release
@@ -43,7 +42,6 @@ jobs:
           prerelease: false
           files: |
             chunker.exe
-            chunker-gui.exe
 
       - name: Upload Binaries to Release
         if: steps.get_release.outputs.exists == 'true'
@@ -51,4 +49,3 @@ jobs:
         with:
           files: |
             chunker.exe
-            chunker-gui.exe
