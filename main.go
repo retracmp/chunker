@@ -2,14 +2,14 @@ package main
 
 import (
 	"acid/chunker/src/cmd"
+	"fmt"
 
 	"os"
 )
 
 func main() {
-	os.Args = append(os.Args, "ui")
-
 	if len(os.Args) < 2 {
+		fmt.Printf("Usage: %s <command>\n", os.Args[0])
 		return
 	}
 
