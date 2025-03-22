@@ -94,7 +94,6 @@ func (d *download) View() string {
 	}
 }
 
-
 type DownloadResult struct {}
 
 func (d *download) DownloadManifest() tea.Cmd {
