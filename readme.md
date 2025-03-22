@@ -1,8 +1,10 @@
 # `acid/chunker`
 
-a utility to improve upload and download speeds for large files by splitting them into smaller chunks.
+a better fortnite version downloader
 
 > note: to download a build, you will need at minimum 2x the size of the file you are downloading. this is because the file is chunked and then reassembled. the chunks are then deleted after reassembly.
+
+![image](https://github.com/user-attachments/assets/1d020035-c3ff-4dd4-9e2c-0612d13ba300)
 
 ## features
 
@@ -18,8 +20,6 @@ a utility to improve upload and download speeds for large files by splitting the
 ## coming soon
 
 - integrated gui
-
-![image](https://github.com/user-attachments/assets/ed6708eb-2975-4fe1-80dd-0ae9b82c7b0a)
 
 ## usage
 
