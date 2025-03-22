@@ -6,7 +6,7 @@ a utility to improve upload and download speeds for large files by splitting the
 
 ## features
 
-- supports both a tui or cli interface
+- supports both a tui or a raw cli interface
 - chunk entire folders into n size chunks and generates a manifest file
 - both single & multi-threaded chunking available
 - reassemble chunks into original file from manifest from local file
@@ -18,7 +18,9 @@ a utility to improve upload and download speeds for large files by splitting the
 
 ## coming soon
 
-make a issue if you want features
+> make a issue if you want more features
+
+- rework the download to either print to the console on each step if a flag is used, or if the tui is being used then update some progress bars for a better user experience
 
 ![image](https://github.com/user-attachments/assets/ed6708eb-2975-4fe1-80dd-0ae9b82c7b0a)
 

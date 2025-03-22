@@ -15,6 +15,7 @@ type download_stage int
 const (
 	enter_path download_stage = iota
 	download_build
+	should_exit
 )
 
 type download struct {
@@ -55,9 +56,14 @@ func (d *download) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				d.stage = download_build
 				return d, d.DownloadManifest()
 			}
+		default:
+			if d.stage == should_exit {
+				return d, tea.Quit
+			}
 		}
 	case DownloadResult:
-		return d, tea.Quit
+		d.stage = should_exit
+		return d, tea.ClearScreen
 	}
 
 	cmd := tea.Cmd(nil)
@@ -76,6 +82,13 @@ func (d *download) View() string {
 		)
 	case download_build:
 		return fmt.Sprintf("Downloading %s", d.manifest)
+	case should_exit:
+		return fmt.Sprintf(
+			"Downloaded %s! You should see the build in %s\n\n%s", 
+			d.manifest,
+			d.path.Value(),
+			gloss.NewStyle().Foreground(gloss.Color("#626262")).Render("press any key to quit"),
+		)
 	default:
 		return fmt.Sprintf("Downloading %s", d.manifest)
 	}
