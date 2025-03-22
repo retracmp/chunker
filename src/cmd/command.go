@@ -5,6 +5,7 @@ import (
 	"acid/chunker/src/cmd/compile"
 	"acid/chunker/src/cmd/download"
 	"acid/chunker/src/cmd/hoster"
+	"acid/chunker/src/cmd/ui"
 
 	"fmt"
 )
@@ -24,6 +25,7 @@ var (
 		Compile: compile.Start,
 		Download: download.Start,
 		Hoster: hoster.Start,
+		UI: ui.Start,
 	}
 )
 
