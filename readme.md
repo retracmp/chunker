@@ -23,33 +23,35 @@ a better fortnite version downloader
 > make a issue if you want more features
 
 - rework the download to either print to the console on each step if a flag is used, or if the tui is being used then update some progress bars for a better user experience
+- calculate the max download speed and download the chunks efficiently
 
 ## usage
 
-`./chunker.exe download <manifest_url> <build_dir>`
+for the basic usage just use 
 
+- `./chunker.exe`
+
+if you want to use the raw cli (mainly for embedding in apps or if you want to use your own manifest files):
+
+> download chunked files using a manifest file from a server url:
+
+`./chunker.exe download <manifest_url> <build_dir>`
 - `<manifest_url>` is the url to the manifest file. this is the `.acidmanifest` file that is generated after chunking the build.
 - `<build_dir>`is the directory the resulting build will be placed in.
+
+> to chunk the files and generate a manifest file run
+
+`./chunker.exe chunk <build_dir>`
+- `<build_dir>` is the directory of the build you want to chunk.
+
+
+> this is to emulate a server to test the download command
+
+- `./chunker.exe hoster`
+- will start a local server on `localhost:80` that serves the files in `./builds`
 
 ## setup
 
 - `git clone https://github.com/retracmp/chunker.git`
 - `cd chunker`
 - `go build`
-
-### chunk a build
-
-- `./chunker.exe chunk <build_dir>`
-
-- `<build_dir>` is the directory of the build you want to chunk.
-
-### local file hoster
-
-> this is to emulate a cdn to test the download command
-
-- `./chunker.exe hoster`
-- will start a local server on `localhost:80` that serves the files in `./builds`
-
-## wants
-
-- calculate the max download speed and download the chunks efficiently
