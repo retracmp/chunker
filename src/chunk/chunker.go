@@ -15,6 +15,8 @@ type Chunker struct {
 	RootPath string
 	Files []*File
 	ChunkSize int64
+
+	whitelist map[string]struct{}
 }
 
 func NewChunker(rootPath string, chunkSize int64) *Chunker {
@@ -23,7 +25,13 @@ func NewChunker(rootPath string, chunkSize int64) *Chunker {
 		RootPath: rootPath,
 		ChunkSize: chunkSize,
 		Files: make([]*File, 0),
+
+		whitelist: make(map[string]struct{}),
 	}
+}
+
+func (c *Chunker) AddFileToWhitelist(name string) {
+	c.whitelist[name] = struct{}{}
 }
 
 func (c *Chunker) Chunk() error {
@@ -46,6 +54,13 @@ func (c *Chunker) processFile(path string) error {
 	if err != nil {
 		return err
 	}
+
+	if len(c.whitelist) > 0 {
+		if _, ok := c.whitelist[file.Name]; !ok {
+			return nil
+		}
+	}
+
 	if err = file.Chunk(c.ChunkSize, c.ID); err != nil {
 		return err
 	}

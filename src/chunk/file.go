@@ -8,6 +8,7 @@ import (
 )
 
 type File struct {
+	Name string
 	Path string `json:"-"`
 	DisplayPath string `json:"Path"`
 	Size int64
@@ -21,9 +22,10 @@ func NewFile(path string, rootPath string) (*File, error) {
 	}
 
 	return &File{
+		Name: info.Name(),
 		Path: path,
 		Size: info.Size(),
-		DisplayPath: strings.TrimPrefix(path, fmt.Sprintf(rootPath)),
+		DisplayPath: strings.TrimPrefix(path, rootPath),
 	}, nil
 }
 

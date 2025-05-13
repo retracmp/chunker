@@ -6,6 +6,7 @@ import (
 	"acid/chunker/src/cmd/download"
 	"acid/chunker/src/cmd/hoster"
 	"acid/chunker/src/cmd/ui"
+	"acid/chunker/src/cmd/upload"
 
 	"fmt"
 )
@@ -17,6 +18,7 @@ const (
 	Download ChunkerCommand = "download"
 	Hoster ChunkerCommand = "hoster"
 	UI ChunkerCommand = "ui"
+	Upload ChunkerCommand = "upload"
 )
 
 var (
@@ -26,6 +28,7 @@ var (
 		Download: download.Start,
 		Hoster: hoster.Start,
 		UI: ui.Start,
+		Upload: upload.Start,
 	}
 )
 
