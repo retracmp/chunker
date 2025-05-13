@@ -16,6 +16,7 @@ type Chunker struct {
 	Files []*File
 	ChunkSize int64
 
+	custom string
 	whitelist map[string]struct{}
 }
 
@@ -32,6 +33,11 @@ func NewChunker(rootPath string, chunkSize int64) *Chunker {
 
 func (c *Chunker) AddFileToWhitelist(name string) {
 	c.whitelist[name] = struct{}{}
+}
+
+func (c *Chunker) SetCustomName(name string) {
+	c.ID = name
+	c.custom = name
 }
 
 func (c *Chunker) Chunk() error {
@@ -117,7 +123,7 @@ type RenderedChunks struct {
 func (c *Chunker) render() []byte {
 	renderedChunks := &RenderedChunks{
 		ID: c.ID,
-		UploadName: filepath.Base(c.RootPath),
+		UploadName: helpers.Ternary(c.custom != "", c.custom, filepath.Base(c.RootPath)),
 		Files: c.Files,
 	}
 
