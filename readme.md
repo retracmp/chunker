@@ -27,7 +27,7 @@ a better fortnite version downloader
 
 ## usage
 
-for the basic usage just use 
+for the basic usage just use
 
 - `./chunker.exe`
 
@@ -36,14 +36,17 @@ if you want to use the raw cli (mainly for embedding in apps or if you want to u
 > download chunked files using a manifest file from a server url:
 
 `./chunker.exe download <manifest_url> <build_dir>`
+
 - `<manifest_url>` is the url to the manifest file. this is the `.acidmanifest` file that is generated after chunking the build.
 - `<build_dir>`is the directory the resulting build will be placed in.
 
 > to chunk the files and generate a manifest file run
 
-`./chunker.exe chunk <build_dir>`
-- `<build_dir>` is the directory of the build you want to chunk.
+`./chunker.exe chunk <build_dir> <?optional_name> <...whitelisted_files>`
 
+- `<build_dir>` is the directory of the build you want to chunk.
+- `<?optional_name>` will overwrite the id and manifest file output.
+- `<whitelisted files>` is a include only list of files to chunk. this is a comma separated list of files. if you want to include all files, just leave it blank. to add a file e.g. `file.txt`, add the arg `-WL:file.txt`
 
 > this is to emulate a server to test the download command
 

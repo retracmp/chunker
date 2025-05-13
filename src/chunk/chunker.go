@@ -124,10 +124,11 @@ func (c *Chunker) render() []byte {
 	return helpers.JSONToBytes(renderedChunks)
 }
 
-func (c *Chunker) RenderToFile() error {
+func (c *Chunker) RenderToFile(filename ...string) error {
+	filename = append(filename, filepath.Base(c.RootPath))
 	bytes := c.render()
 
-	file, err := os.Create(fmt.Sprintf("./builds/%s.acidmanifest", filepath.Base(c.RootPath)))
+	file, err := os.Create(fmt.Sprintf("./builds/%s.acidmanifest", filename[0]))
 	if err != nil {
 		return err
 	}
@@ -137,7 +138,7 @@ func (c *Chunker) RenderToFile() error {
 		return err
 	}
 
-	fmt.Printf("Rendered to: %s \n", fmt.Sprintf("./builds/%s.acidmanifest", filepath.Base(c.RootPath)))
+	fmt.Printf("Rendered to: %s \n", fmt.Sprintf("./builds/%s.acidmanifest", filename[0]))
 
 	return nil
 }

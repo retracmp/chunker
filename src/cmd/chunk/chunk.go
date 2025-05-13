@@ -22,7 +22,7 @@ func Start() error {
  
 	chunker := chunk.NewChunker(ArgOrPanic(os.Args[2:], 0), 128 * chunk.MB)
 
-	if len(os.Args[2:]) > 1 { chunker.ID = (os.Args[2:])[1] }
+	if len(os.Args[2:]) > 1 && !strings.Contains((os.Args[2:])[1], "-WL:") { chunker.ID = (os.Args[2:])[1] }
 	for _, arg := range os.Args[3:] {
 		if strings.HasPrefix(arg, "-WL:") {
 			chunker.AddFileToWhitelist(strings.TrimPrefix(arg, "-WL:"))
