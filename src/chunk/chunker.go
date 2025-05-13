@@ -41,6 +41,12 @@ func (c *Chunker) SetCustomName(name string) {
 }
 
 func (c *Chunker) Chunk() error {
+	if _, err := os.Stat(fmt.Sprintf("./builds/%s", c.ID)); !os.IsNotExist(err) {
+		if err := os.RemoveAll(fmt.Sprintf("./builds/%s", c.ID)); err != nil {
+			return err
+		}
+	}
+
 	paths, err := Paths(c.RootPath)
 	if err != nil {
 		return err
