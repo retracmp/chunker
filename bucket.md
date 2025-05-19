@@ -17,6 +17,10 @@ chunker.exe download https://cdn.retrac.site/manifest/<manifest> <outputdir>
 ```
 
 - `++Fortnite+Release-14.40-CL-14550713-Windows.acidmanifest`
+- `++Fortnite+Release-1.8-CL-3724489-Windows.acidmanifest`
+- `Anticheat_Client`
+- `EAC_Client`
+- `Custom_Content`
 
 **abort multipart uploads**
 
