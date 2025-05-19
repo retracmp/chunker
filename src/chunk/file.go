@@ -1,6 +1,7 @@
 package chunk
 
 import (
+	"acid/chunker/src/helpers"
 	"fmt"
 	"os"
 	"path"
@@ -11,6 +12,7 @@ type File struct {
 	Name string
 	Path string `json:"-"`
 	DisplayPath string `json:"Path"`
+	Hash string
 	Size int64
 	Chunks []*Chunk
 }
@@ -35,6 +37,13 @@ func (f *File) Chunk(chunkSize int64, buildId string) error {
 		return err
 	}
 	defer file.Close()
+
+	bytes := make([]byte, f.Size)
+	if _, err := file.Read(bytes); err != nil {
+		return err
+	}
+	f.Hash = strings.ToUpper(helpers.MD5(bytes))
+	bytes = nil // free 
 
 	offset := int64(0)
 	for offset < f.Size {
