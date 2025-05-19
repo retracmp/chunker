@@ -15,7 +15,7 @@ type DownloadOptions struct {
 func NewDownloadOptions(manifestURL string, buildDir string) DownloadOptions {
 	options := DownloadOptions{
 		BuildDir:        buildDir,
-		TempDownloadDir: path.Join(buildDir, "temp"),
+		TempDownloadDir: path.Join(buildDir, "TemporaryChunks"),
 	}
 	parsedURL, err := url.Parse(manifestURL)
 	if err != nil {
