@@ -3,6 +3,7 @@ package chunk
 import (
 	"acid/chunker/src/helpers"
 	"fmt"
+	"io"
 	"os"
 	"path"
 	"strings"
@@ -39,7 +40,7 @@ func (f *File) Chunk(chunkSize int64, buildId string) error {
 	defer file.Close()
 
 	bytes := make([]byte, f.Size)
-	if _, err := file.Read(bytes); err != nil {
+	if _, err := io.ReadFull(file, bytes); err != nil {
 		return err
 	}
 	f.Hash = strings.ToUpper(helpers.MD5(bytes))
