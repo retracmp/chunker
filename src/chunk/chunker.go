@@ -18,6 +18,7 @@ type Chunker struct {
 
 	custom string
 	whitelist map[string]struct{}
+	deleted []*File
 }
 
 func NewChunker(rootPath string, chunkSize int64) *Chunker {
@@ -38,6 +39,10 @@ func (c *Chunker) AddFileToWhitelist(name string) {
 func (c *Chunker) SetCustomName(name string) {
 	c.ID = name
 	c.custom = name
+}
+
+func (c *Chunker) AddDeletedFile(displayPath string) {
+	c.deleted = append(c.deleted, NewDeletedFile(displayPath))
 }
 
 func (c *Chunker) Chunk() error {
@@ -130,7 +135,7 @@ func (c *Chunker) render() []byte {
 	renderedChunks := &RenderedChunks{
 		ID: c.ID,
 		UploadName: helpers.Ternary(c.custom != "", c.custom, filepath.Base(c.RootPath)),
-		Files: c.Files,
+		Files: append(append([]*File{}, c.Files...), c.deleted...),
 	}
 
 	return helpers.JSONToBytes(renderedChunks)

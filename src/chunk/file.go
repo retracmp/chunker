@@ -16,6 +16,22 @@ type File struct {
 	Hash string
 	Size int64
 	Chunks []*Chunk
+	// A tombstone: a later manifest layer retires this path, the launcher removes it when present. Size is -1 so
+	// older readers never try to download it.
+	Deleted bool `json:",omitempty"`
+}
+
+func NewDeletedFile(displayPath string) *File {
+	cleaned := strings.ReplaceAll(strings.TrimSpace(displayPath), "/", string(os.PathSeparator))
+	if !strings.HasPrefix(cleaned, string(os.PathSeparator)) {
+		cleaned = string(os.PathSeparator) + cleaned
+	}
+	return &File{
+		Name: path.Base(strings.ReplaceAll(cleaned, string(os.PathSeparator), "/")),
+		DisplayPath: cleaned,
+		Size: -1,
+		Deleted: true,
+	}
 }
 
 func NewFile(path string, rootPath string) (*File, error) {
