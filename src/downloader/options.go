@@ -1,6 +1,7 @@
 package downloader
 
 import (
+	"acid/chunker/src/helpers"
 	"net/url"
 	"path"
 )
@@ -13,6 +14,7 @@ type DownloadOptions struct {
 }
 
 func NewDownloadOptions(manifestURL string, buildDir string) DownloadOptions {
+	buildDir = helpers.ExpandEnv(buildDir)
 	options := DownloadOptions{
 		BuildDir:        buildDir,
 		TempDownloadDir: path.Join(buildDir, "TemporaryChunks"),

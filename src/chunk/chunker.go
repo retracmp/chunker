@@ -22,6 +22,7 @@ type Chunker struct {
 }
 
 func NewChunker(rootPath string, chunkSize int64) *Chunker {
+	rootPath = helpers.ExpandEnv(rootPath)
 	return &Chunker{
 		ID: strings.ToUpper(helpers.MD5([]byte(filepath.Base(rootPath)))),
 		RootPath: rootPath,
